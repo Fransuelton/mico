@@ -1,0 +1,21 @@
+{
+  "name": "mico",
+  "version": "1.0.0",
+  "description": "> A tiny Lisp-flavored interpreter built from scratch in JavaScript.",
+  "main": "mico.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fransuelton/mico.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fransuelton/mico/issues"
+  },
+  "homepage": "https://github.com/Fransuelton/mico#readme"
+}
