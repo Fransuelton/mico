@@ -17,8 +17,12 @@ Mico is a minimal programming language with first-class functions, closures, and
 
 ```
 mico/
-├── mico.js        # tokenizer + parser
-└── evaluator.js   # evaluator + global environment
+├── tokenizer.js   # turns source code into a flat list of tokens
+├── mico.js        # parser — turns tokens into an AST
+├── evaluator.js   # evaluator + global environment (entry point)
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 ## 🚀 Quick start
@@ -150,5 +154,3 @@ Possible future directions, if I revisit this:
 ## 📝 License
 
 MIT — feel free to fork, learn, and break things.
-
----
