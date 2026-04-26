@@ -27,18 +27,29 @@ function evaluate(ast, env) {
     const op = ast[0];
 
     if (op === "define") {
-      const name = ast[1]
+      const name = ast[1];
       const value = evaluate(ast[2], env);
       env[name] = value;
       return undefined;
     }
 
     if (op === "if") {
-      const value = evaluate(ast[1], env)
+      const value = evaluate(ast[1], env);
       return value ? evaluate(ast[2], env) : evaluate(ast[3], env);
     }
     if (op === "lambda") {
-      // ...
+      const params = ast[1]; // ["n"]
+      const body = ast[2]; // ["*", "n", "n"]
+
+      return (...args) => {
+        const newEnv = { ...env };
+
+        for (let i = 0; i < params.length; i++) {
+          newEnv[params[i]] = args[i];
+        }
+
+        return evaluate(body, newEnv);
+      };
     }
 
     const func = evaluate(ast[0], env);
@@ -61,7 +72,17 @@ function evaluate(ast, env) {
 // console.log(evaluate(parse("(> 5 3)"), globalEnv));
 // // Esperado: true
 
-console.log(evaluate(parse("(if (> 5 3) 100 200)"), globalEnv));  // 100
-console.log(evaluate(parse("(if (< 5 3) 100 200)"), globalEnv));  // 200
+console.log(evaluate(parse("(if (> 5 3) 100 200)"), globalEnv)); // 100
+console.log(evaluate(parse("(if (< 5 3) 100 200)"), globalEnv)); // 200
 evaluate(parse("(define x 10)"), globalEnv);
 console.log(evaluate(parse("(if (> x 5) (+ x 1) 0)"), globalEnv)); // 11 (x ainda vale 10)
+
+evaluate(parse("(define square (lambda (n) (* n n)))"), globalEnv);
+console.log(evaluate(parse("(square 5)"), globalEnv)); // 25
+
+evaluate(parse("(define add (lambda (a b) (+ a b)))"), globalEnv);
+console.log(evaluate(parse("(add 3 4)"), globalEnv)); // 7
+
+// O teste que mata a charada (junta tudo):
+evaluate(parse("(define x 10)"), globalEnv);
+console.log(evaluate(parse("(if (> x 5) (square x) 0)"), globalEnv)); // 100
