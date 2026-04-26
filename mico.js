@@ -1,6 +1,6 @@
 import { tokenize } from "./tokenizer.js";
 
-function parse(source) {
+export function parse(source) {
   const tokens = tokenize(source);
   return readFromTokens(tokens);
 }
